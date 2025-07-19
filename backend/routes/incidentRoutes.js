@@ -4,7 +4,7 @@ const {
   createIncident,
   getAllIncidents,
   updateIncident,
-  deleteIncident
+  deleteIncident 
 } = require("../controllers/incidentController");
 
 router.post("/", createIncident);

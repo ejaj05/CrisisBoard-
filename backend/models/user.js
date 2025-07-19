@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
-
 const userSchema = new mongoose.Schema({
-    name1: {
+    name: {
         type: String,
         required: true
     },
@@ -13,6 +12,9 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    number: {
+        type : Number
     },
     role: {
         type: String,
@@ -29,12 +31,11 @@ const userSchema = new mongoose.Schema({
             default: 'Point'
         },
         coordinates: {
-            type: [Number], // [longitude, latitude]
+            type: [Number],   // ["longitude",latitude]
             default: [0, 0]
         }
     },
 },{ timestamps: true })
-
 userSchema.index({ location: '2dsphere' });
 const User = mongoose.model("User",userSchema)
 module.exports={
