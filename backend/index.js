@@ -25,7 +25,7 @@ app.use(express.json());
 connectDB()
 
 // Routes
-app.use('/api/v1/users', require('./routes/userRoutes'));
+app.use('/api/v1/users', use);
 app.use('/api/v1/incidents', require('./routes/incidentRoutes'));
 app.use('/api/v1/chat', require('./routes/chatRoutes'));
 
