@@ -43,12 +43,12 @@ const Signup = () => {
                 </div>
 
                 <form className='mt-10'>
-                    <div className='flex md:gap-6 gap-2'>
-                        <div className='w-[50%]'>
+                    <div className='md:flex md:gap-6 gap-2'>
+                        <div className='md:w-[50%]'>
                             <label className='text-zinc-600' htmlFor="firstName">First name</label><br />
                             <input value={firstName} onChange={(e) => setFirstName(e.target.value)} id='firstName' className="w-full p-2 mb-6 shadow border border-gray-300 rounded-md  outline-0" />
                         </div>
-                        <div className='w-[50%]'>
+                        <div className='md:w-[50%]'>
                             <label className='text-zinc-600' htmlFor="lastName">Last name</label><br />
                             <input value={lastName} onChange={(e) => setLastName(e.target.value)} id='lastName' className="w-full p-2 mb-6 shadow border border-gray-300 rounded-md  outline-0" />
                         </div>
@@ -58,8 +58,8 @@ const Signup = () => {
                         <input value={email} onChange={(e) => setEmail(e.target.value)} id='email' type='email' className="w-full p-2 mb-6 shadow border border-gray-300 rounded-md  outline-0" />
                     </div>
 
-                    <div className='flex gap-6'>
-                        <div className='w-[50%]'>
+                    <div className='md:flex gap-6'>
+                        <div className='md:w-[50%]'>
                             <label className='text-zinc-600' htmlFor="password">password</label><br />
                             <div className='relative'>
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} id='password' type={`${showPassword ? "text" : "password"}`} className="w-full p-2 mb-6 shadow border border-gray-300 rounded-md  outline-0" />
@@ -67,7 +67,7 @@ const Signup = () => {
                             </div>
 
                         </div>
-                        <div className='w-[50%]'>
+                        <div className='md:w-[50%]'>
                             <label className='text-zinc-600' htmlFor="cpassword">confirm password</label><br />
                             <div className='relative'>
                                 <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} id='cpassword' type={`${showConfirmPassword ? "text" : "password"}`} className="w-full p-2 mb-6 shadow border border-gray-300 rounded-md  outline-0" />
