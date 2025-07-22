@@ -31,7 +31,7 @@ const Signup = () => {
     }
 
     return (
-        <div className="bg-blue-100 md:p-16 px-8 py-20">
+        <div className="bg-blue-100 md:p-16 px-5 py-20 mt-20 h-screen overflow-auto z-0">
             <div className="bg-white p-8 mx-auto rounded shadow-md md:w-[35%] w-full">
                 <div className='text-[#1E88E5] flex flex-col justify-center items-center text-2xl mb-2'>
                     <SlLocationPin className='text-3xl' />

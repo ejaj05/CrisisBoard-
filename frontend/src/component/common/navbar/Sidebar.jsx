@@ -20,7 +20,7 @@ const Sidebar = () => {
 
     return (
 
-        <div className={`absolute top-0 right-0 bg-[#1F2937] p-6 h-screen  ${open ? "translate-x-0" : "translate-x-[250px]" } transition duration-500`}>
+        <div className={`absolute z-10 top-0 right-0 bg-[#1F2937] p-6 h-screen  ${open ? "translate-x-0" : "translate-x-[250px]" } transition duration-500`}>
             <div>
                 <RxCross2 onClick={() => dispatch(setOpen(!open))} className='text-white text-4xl' />
                 <ul className='text-[#FFFFFF]'>
