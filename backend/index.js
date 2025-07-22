@@ -4,6 +4,7 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 const connectDB = require('./config/db');
+const { userRoutes } = require('./routes/user');
 
 dotenv.config();
 
@@ -15,8 +16,7 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
   },
 });
-
-require('./socket')(io); // Socket.IO handlers
+require("./socket/socket")(io); // Socket.IO handlers
 
 app.use(cors());
 app.use(express.json());
@@ -25,9 +25,8 @@ app.use(express.json());
 connectDB()
 
 // Routes
-app.use('/api/v1/users', use);
-app.use('/api/v1/incidents', require('./routes/incidentRoutes'));
-app.use('/api/v1/chat', require('./routes/chatRoutes'));
+app.use('/api/v1/user',userRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

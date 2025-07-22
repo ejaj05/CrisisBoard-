@@ -1,68 +1,96 @@
 const { User } = require("../models/user");
 const bcrypt = require("bcryptjs");
+const otpGenerator = require("otp-generator")
 require("dotenv").config()
 
 const jwt = require("jsonwebtoken");
+const { OTP } = require("../models/OTP");
 // Register user
-const sentOtp = async(req,res) => {
+const sentOtp = async (req, res) => {
   try {
-    
+    const { email } = req.body;
+    const user = await User.find({ email });
+    if (user.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exist"
+      })
+    }
+    var otp = otpGenerator.generate(6, { upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
+    const response = await OTP.create({ email, otp: otp })
+    return res.status(200).json({
+      success: true,
+      message: "OTP send successfully",
+    });
   } catch (error) {
-    
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
 }
-const register = async (req, res) => {
+
+
+// Sign up
+const Signup = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-
-    // 1. Validate input
-    if (!name || !email || !password) {
+    const { firstName, lastName, email, password, confirmPassword, number, otp } = req.body;
+    if(!otp){
       return res.status(400).json({
         success: false,
-        message: "Please fill all required fields"
-      });
+        message: "Please Enter the OTP"
+      })
     }
-
-    // 2. Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword || !number) {
       return res.status(400).json({
         success: false,
-        message: "User with this email already exists"
-      });
+        message: "All Fields are required!"
+      })
+    }
+    const user = await User.find({ email });
+    if (user.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exist"
+      })
     }
 
-    // 3. Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    // 4. Create and save user
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      role: role || "civilian"
-    });
+    // Recent most value
+    const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
 
-    const savedUser = await newUser.save();
+    if (recentOtp.length == 0) {
+      return res.status(400).json({
+        success: false,
+        message: "OTP not found"
+      })
+    } else if (recentOtp[0].otp !== otp) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid OTP"
+      });
+    }
+    if (password != confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "password and confirmPassword are not same"
+      })
+    }
 
-    // 5. Return success response
-    return res.status(201).json({
+    const hashPassword = await bcrypt.hash(password, 10);
+    const response = await User.create({ firstName, lastName, email, password: hashPassword, number, image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName}${lastName}` });
+    response.password = undefined;
+
+    return res.status(200).json({
       success: true,
-      message: "User registered successfully",
-      user: {
-        _id: savedUser._id,
-        name: savedUser.name,
-        email: savedUser.email,
-        role: savedUser.role
-      }
-    });
-  } catch (err) {
-    console.error("Registration Error:", err.message);
+      message: "User Registered Successfully"
+    })
+  } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Server Error. Please try again later."
-    });
+      message: error.message
+    })
   }
-};
+}
 
 
 // Login User
@@ -70,7 +98,6 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -78,16 +105,14 @@ const login = async (req, res) => {
       });
     }
 
-    // 2. Find user
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password"
+        message: "User not found"
       });
     }
 
-    // 3. Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -96,7 +121,6 @@ const login = async (req, res) => {
       });
     }
 
-    // 4. Generate JWT
     const token = jwt.sign(
       {
         id: user._id,
@@ -110,14 +134,9 @@ const login = async (req, res) => {
     // 5. Send token and user data
     return res.status(200).json({
       success: true,
-      message: "Login successful",
+      message: "Login successfull",
       token,
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
+      user
     });
 
   } catch (err) {
@@ -131,4 +150,4 @@ const login = async (req, res) => {
 
 
 
-module.exports = { register  , login};
+module.exports = { sentOtp, Signup, login };

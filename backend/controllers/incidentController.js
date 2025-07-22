@@ -1,4 +1,4 @@
-const Incident = require("../models/Incident");
+const Incident = require("../model/Incident");
 
 // CREATE
 exports.createIncident = async (req, res) => {
