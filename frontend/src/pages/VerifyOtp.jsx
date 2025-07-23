@@ -25,7 +25,7 @@ const VerifyOtp = () => {
       );
       console.log(response);
       toast.success(response.data.message);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message);

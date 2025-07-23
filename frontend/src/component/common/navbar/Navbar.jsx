@@ -21,9 +21,9 @@ const Navbar = () => {
         { name: 'Map ', path: '/' },
     ]
     return (
-        <div className='bg-[#1E88E5] h-20 w-[100%] fixed flex items-center justify-between md:pl-[70px] md:pr-[90px] pr-4'>
+        <div className='z-10 bg-[#1E88E5] h-20 w-[100%] fixed flex items-center justify-between md:pl-[70px] md:pr-[90px] pr-4'>
             <Link to={'/'} className='h-[75%]'>
-                <img className='h-full' src={Logo} alt="" />
+                <img className='h-full' src={Logo} loading='lazy' alt="" />
             </Link>
 
             <ul className='md:flex w-[35%] hidden justify-between text-[#FFFFFF]'>

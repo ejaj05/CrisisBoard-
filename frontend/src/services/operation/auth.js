@@ -12,14 +12,14 @@ const sentOtp = (navigate,email) => {
             console.log(response.data.success)
 
             if (!response.data.success) {
-                throw new Error(response.data.message)
+                toast.error(response.data.message)
             }
 
             toast.success("OTP Sent Successfully")
             navigate("/verify-Email")
         } catch (error) {
             console.log("SENDOTP API ERROR............", error)
-            if (error?.response?.data?.message == "User already exists") {
+            if (error?.response?.data?.message == "User already exist") {
                 toast.error(error?.response?.data?.message)
             } else {
                 toast.error("Failed to send OTP")
