@@ -13,7 +13,7 @@ const Sidebar = () => {
     const navList = [
         { name: 'Home', path: '/' },
         { name: 'Incidents ', path: '/' },
-        { name: 'Report ', path: '/' },
+        { name: 'Report ', path: '/report' },
         { name: 'Responders ', path: '/' },
         { name: 'Map ', path: '/' },
     ]

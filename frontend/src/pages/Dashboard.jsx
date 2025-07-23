@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Bell, MapPin, PlusCircle, AlertTriangle, User } from 'lucide-react';
 import FullMapView from './FullMapView';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [incidents, setIncidents] = useState([
@@ -13,15 +14,7 @@ const Dashboard = () => {
   const username = "Ejaj"; // Ideally fetched from auth context
 
   return (
-    <div className="h-screen bg-gray-50 overflow-auto">
-      {/* Header */}
-      <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-sky-700">CrisisBoard</h1>
-        <div className="flex items-center gap-4">
-          <Bell className="text-gray-600 hover:text-black cursor-pointer" />
-          <User className="text-gray-600 hover:text-black cursor-pointer" />
-        </div>
-      </header>
+    <div className="h-screen bg-gray-50 overflow-auto mt-20 md:px-20 pb-28">
 
       {/* Main Content */}
       <main className="p-6 space-y-6">
@@ -49,17 +42,16 @@ const Dashboard = () => {
 
         {/* Map Preview */}
         <div className="bg-white p-4 shadow rounded-lg">
-          <h3 className="text-lg font-semibold text-sky-700 mb-2">Live Map</h3>
-          <div className="bg-gray-200 h-[90vh] flex items-center justify-center text-gray-500">
+          <div className="bg-gray-200 md:h-[90vh] h-[60vh] flex items-center justify-center text-gray-500">
             <FullMapView/>
           </div>
         </div>
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <button className="bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 flex items-center justify-center gap-2">
+          <Link to={'/report'} className="bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 flex items-center justify-center gap-2">
             <PlusCircle size={20} /> Report Incident
-          </button>
+          </Link>
           <button className="bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 flex items-center justify-center gap-2">
             <MapPin size={20} /> View Nearby
           </button>

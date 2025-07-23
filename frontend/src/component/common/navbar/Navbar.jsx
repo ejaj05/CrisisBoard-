@@ -1,22 +1,24 @@
 import React from 'react'
 import Logo from "../../../assets/Logo.png"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../../slices/sidebarSlice';
-import Sidebar from './Sidebar';
 
 const Navbar = () => {
-    const [active, setActive] = useState("Home")
+    let {pathname} = useLocation()
+    pathname = pathname.split('/')[1];
+    const [active, setActive] = useState(pathname || 'home')
     const {open} = useSelector((state) => state.sidebar)
-
+    
+    console.log(active)
     const dispatch = useDispatch();
     const navList = [
         { name: 'Home', path: '/' },
         { name: 'Incidents ', path: '/' },
-        { name: 'Report ', path: '/' },
+        { name: 'Report ', path: '/report' },
         { name: 'Responders ', path: '/' },
         { name: 'Map ', path: '/' },
     ]
@@ -28,7 +30,7 @@ const Navbar = () => {
 
             <ul className='md:flex w-[35%] hidden justify-between text-[#FFFFFF]'>
                 {navList.map((li, idx) => {
-                    return <li key={idx} onClick={() => setActive(li.name)} className={`hover:bg-[#1565C0] hover:rounded-md p-2 border-b-2 ${active == li.name ? "border-[#FB8C00]" : "border-transparent"} `}>
+                    return <li key={idx} onClick={() => setActive(li.name.toLowerCase())} className={`hover:bg-[#1565C0] hover:rounded-md p-2 border-b-2 ${active == li.name.toLowerCase()? "border-[#FB8C00]" : "border-transparent"} `}>
                         <Link to={`${li.path}`}>{li.name}</Link>
                     </li>
                 })}

@@ -5,11 +5,11 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { ToastContainer } from 'react-toastify';
 import VerifyOtp from './pages/VerifyOtp'
-import Home from './pages/Home'
 import { useDispatch, useSelector } from 'react-redux'
 import Sidebar from './component/common/navbar/Sidebar'
 import { setOpen } from './slices/sidebarSlice'
 import Dashboard from './pages/Dashboard'
+import ReportIncident from './pages/ReportIncident'
 
 const App = () => {
   const { open } = useSelector((state) => state.sidebar)
@@ -25,6 +25,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/verify-Email' element={<VerifyOtp />} />
+      <Route path="/report" element={<ReportIncident />} />
     </Routes>
     <ToastContainer />
 </div>

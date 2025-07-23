@@ -25,11 +25,8 @@ export default function FullMapView() {
   return (
     <div className="h-full w-full bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+      <header className="bg-white shadow-md py-4 flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-700">CrisisBoard Map View</h1>
-        <button className="bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700">
-          Back to Dashboard
-        </button>
       </header>
 
       {/* Map Section */}
