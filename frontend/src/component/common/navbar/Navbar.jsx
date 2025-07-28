@@ -17,13 +17,13 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const navList = [
         { name: 'Home', path: '/' },
-        { name: 'Incidents ', path: '/' },
+        { name: 'Incidents ', path: '/incidents' },
         { name: 'Report ', path: '/report' },
         { name: 'Responders ', path: '/' },
         { name: 'Map ', path: '/' },
     ]
     return (
-        <div className='z-10 bg-[#1E88E5] h-20 w-[100%] fixed flex items-center justify-between md:pl-[70px] md:pr-[90px] pr-4'>
+        <div className='z-20 bg-[#1E88E5] h-20 w-[100%] fixed flex items-center justify-between md:pl-[70px] md:pr-[90px] pr-4'>
             <Link to={'/'} className='h-[75%]'>
                 <img className='h-full' src={Logo} loading='lazy' alt="" />
             </Link>
